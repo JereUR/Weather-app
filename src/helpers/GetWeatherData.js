@@ -6,8 +6,6 @@ export default async function fetchWeatherData({ latitude, longitude }) {
     const locationResponse = await fetch(locationUrl)
     const locationData = await locationResponse.json()
 
-    console.log(locationData)
-
     if (locationData.Key) {
       const locationKey = locationData.Key
 
@@ -15,8 +13,6 @@ export default async function fetchWeatherData({ latitude, longitude }) {
 
       const weatherResponse = await fetch(weatherUrl)
       const weatherData = await weatherResponse.json()
-
-      console.log(weatherData)
 
       if (weatherData && weatherData.length > 0) {
         const weather = weatherData[0]

@@ -22,7 +22,7 @@ function getUserLocation() {
   })
 }
 
-export default async function getCityFromCoordinates() {
+export default async function GetUserCity() {
   try {
     const userLocation = await getUserLocation()
 
