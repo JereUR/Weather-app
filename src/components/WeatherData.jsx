@@ -1,22 +1,18 @@
 import { useEffect, useState } from 'react'
 
 import fetchWeatherData from '../helpers/GetWeatherData'
-import GetUserCity from '../helpers/GetUserCity'
+import CityData from './CityData'
 
-export default function WeatherData() {
-  const [city, setCity] = useState('')
+export default function WeatherData({ latitude, longitude, city }) {
   const [weatherData, setWeatherData] = useState(null)
   const [weatherClassName, setWeatherClassName] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userCity = await GetUserCity()
-        setCity(userCity.city)
-
         const data = await fetchWeatherData({
-          latitude: userCity.userLocation.latitude,
-          longitude: userCity.userLocation.longitude
+          latitude,
+          longitude
         })
         let condition = data.condition.replace(/\//g, '')
         condition = condition.replace(' ', '-')
@@ -43,16 +39,11 @@ export default function WeatherData() {
     }
 
     fetchData()
-  }, [])
+  }, [latitude, longitude])
 
   return (
     <div>
-      {city ? (
-        <p>La ciudad del usuario es: {city}</p>
-      ) : (
-        <p>Cargando la ubicación del usuario...</p>
-      )}
-
+      <CityData city />
       {weatherData && (
         <div>
           <h2>Datos del clima:</h2>

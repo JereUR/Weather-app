@@ -40,7 +40,8 @@ export default async function GetUserCity() {
 
     return { city, userLocation }
   } catch (error) {
-    console.log('Error al obtener la ubicación:', error)
-    return error
+    return {
+      message: error.message
+    }
   }
 }
