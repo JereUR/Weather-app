@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Nunito', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -24,8 +24,28 @@
 body {
   background-color: var(--background-color);
   color: var(--primary-text);
+  margin: 0;
+  height: 100vh;
 }
+
+/* Temperature Styles */
 
 .very-cold {
   color: var(--very-cold-temperature);
+}
+
+.cold {
+  color: var(--cold-temperature);
+}
+
+.normal {
+  color: var(--normal-temperature);
+}
+
+.hot {
+  color: var(--hot-temperature);
+}
+
+.very-hot {
+  color: var(--very-hot-temperature);
 }
