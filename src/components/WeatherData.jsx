@@ -1,19 +1,16 @@
 import { useEffect, useState } from 'react'
 
-import fetchWeatherData from '../helpers/GetWeatherData'
 import CityData from './CityData'
+import GetWeatherData from '../helpers/GetWeatherData'
 
-export default function WeatherData({ latitude, longitude, city }) {
+export default function WeatherData({ city, keyCountry, setError }) {
   const [weatherData, setWeatherData] = useState(null)
   const [weatherClassName, setWeatherClassName] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const data = await fetchWeatherData({
-          latitude,
-          longitude
-        })
+      const data = await GetWeatherData({ key: keyCountry })
+      if (!data.message) {
         let condition = data.condition.replace(/\//g, '')
         condition = condition.replace(' ', '-')
         const weather = {
@@ -33,17 +30,17 @@ export default function WeatherData({ latitude, longitude, city }) {
           setWeatherClassName('very-hot')
         }
         setWeatherData(weather)
-      } catch (error) {
-        console.log('Error al obtener los datos del clima:', error)
+      } else {
+        setError(data.message)
       }
     }
 
     fetchData()
-  }, [latitude, longitude])
+  }, [keyCountry])
 
   return (
     <div>
-      <CityData city />
+      <CityData city={city} />
       {weatherData && (
         <div>
           <h2>Datos del clima:</h2>

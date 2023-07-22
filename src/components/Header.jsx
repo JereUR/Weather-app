@@ -6,7 +6,7 @@ import SearchCities from './SearchCitites'
 
 const { headerColor } = Colors
 
-export default function Header() {
+export default function Header({ setCity, setSearchMode }) {
   return (
     <HeaderContainer>
       <LogoContainer>
@@ -14,7 +14,7 @@ export default function Header() {
         <h1>Weather App</h1>
       </LogoContainer>
       <SearchContainer>
-        <SearchCities />
+        <SearchCities setCity={setCity} setSearchMode={setSearchMode} />
       </SearchContainer>
     </HeaderContainer>
   )

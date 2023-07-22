@@ -4,55 +4,30 @@ import styled from 'styled-components'
 
 import SearchResults from './SearchResults'
 import { Colors } from '../static/Colors'
+import getCountryCode from '../helpers/GetCountryCode'
+import GetUserCity from '../helpers/GetUserCity'
+import GetWeatherData from '../helpers/GetWeatherData'
+import GetCityLocalTime from '../helpers/GetCityLocalTime'
 
 const { headerColor } = Colors
 
 const ACCUWEATHER_API_KEY = import.meta.env.VITE_ACCUWEATHER_API_KEY
 
-export default function SearchCities() {
+export default function SearchCities({ setCity, setSearchMode }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [searchResults, setSearchResults] = useState([])
 
   const handleSearch = async (e) => {
     const searchTerm = e.target.value
     setSearchTerm(searchTerm)
+    setSearchMode(true)
 
     try {
-      const response = await axios.get(
-        `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${ACCUWEATHER_API_KEY}&q=${searchTerm}`
-      )
+      const response = await GetUserCity(searchTerm)
 
-      const citiesData = response.data.map((item) => ({
-        city: item.LocalizedName,
-        country: item.Country.LocalizedName,
-        key: item.Key
-      }))
-
-      setSearchResults(citiesData)
+      setSearchResults(response)
     } catch (error) {
       console.error('Error al obtener datos de la API', error)
-    }
-  }
-
-  const getCountryCode = async (countryName) => {
-    console.log(countryName)
-    try {
-      const response = await axios.get(
-        `https://restcountries.com/v3.1/name/${encodeURIComponent(
-          countryName
-        )}?fullText=true`
-      )
-      console.log(response)
-
-      const countryCode = response.data[0]?.region
-      if (countryCode === 'Americas') {
-        return 'America'
-      } else {
-        return countryCode
-      }
-    } catch (error) {
-      console.error('Error al obtener el countryCode', error)
-      return null
     }
   }
 
@@ -60,11 +35,10 @@ export default function SearchCities() {
     setSearchTerm(`${result.city}, ${result.country}`)
     setSearchResults([])
     setSearchTerm('')
+    setCity(result)
 
     try {
-      const weatherResponse = await axios.get(
-        `http://dataservice.accuweather.com/currentconditions/v1/${result.key}?apikey=${ACCUWEATHER_API_KEY}`
-      )
+      const weatherResponse = await GetWeatherData({ key: result.key })
 
       const temperature = weatherResponse.data[0].Temperature.Metric.Value
 
@@ -73,11 +47,10 @@ export default function SearchCities() {
       const cityNameWithUnderscore = result.city.replace(/ /g, '_')
 
       if (countryCode) {
-        const worldTimeResponse = await axios.get(
-          `https://worldtimeapi.org/api/timezone/${countryCode}/${cityNameWithUnderscore}`
+        const localTime = await GetCityLocalTime(
+          countryCode,
+          cityNameWithUnderscore
         )
-
-        const localTime = worldTimeResponse.data.datetime
 
         console.log('Temperatura actual:', temperature)
         console.log('Hora local:', localTime)

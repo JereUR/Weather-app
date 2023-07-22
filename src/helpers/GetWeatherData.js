@@ -1,35 +1,28 @@
-export default async function fetchWeatherData({ latitude, longitude }) {
+import axios from 'axios'
+
+export default async function GetWeatherData({ key }) {
   const apiKey = import.meta.env.VITE_ACCUWEATHER_API_KEY
   try {
-    const locationUrl = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${apiKey}&q=${latitude},${longitude}`
+    const weatherUrl = `https://dataservice.accuweather.com/currentconditions/v1/${key}?apikey=${apiKey}`
 
-    const locationResponse = await fetch(locationUrl)
-    const locationData = await locationResponse.json()
+    const weatherData = await axios.get(weatherUrl)
 
-    if (locationData.Key) {
-      const locationKey = locationData.Key
+    console.log(weatherData)
 
-      const weatherUrl = `https://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${apiKey}`
-
-      const weatherResponse = await fetch(weatherUrl)
-      const weatherData = await weatherResponse.json()
-
-      if (weatherData && weatherData.length > 0) {
-        const weather = weatherData[0]
-        const weatherDetails = {
-          temperature: weather.Temperature.Metric.Value,
-          condition: weather.WeatherText
-        }
-
-        return weatherDetails
-      } else {
-        throw new Error('No se encontraron datos climáticos')
+    if (weatherData.data) {
+      const weather = weatherData.data[0]
+      const weatherDetails = {
+        temperature: weather.Temperature.Metric.Value,
+        condition: weather.WeatherText
       }
+
+      return weatherDetails
     } else {
-      throw new Error('No se encontró la ubicación')
+      throw new Error('No se encontraron datos climáticos')
     }
   } catch (error) {
-    console.log('Error al obtener datos climáticos:', error)
-    throw error
+    return {
+      message: error.message
+    }
   }
 }

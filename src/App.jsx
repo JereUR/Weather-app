@@ -10,42 +10,47 @@ const { errorText, backgroundError } = Colors
 
 export default function App() {
   const [city, setCity] = useState(null)
-  const [errorCity, setErrorCity] = useState(null)
+  const [errorFetch, setErrorFetch] = useState(null)
+  const [searchMode, setSearchMode] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const userCity = await GetUserCity()
+      const userCity = await GetUserCity()
+      if (!userCity.message) {
         if (userCity.message) {
-          setErrorCity(userCity.message)
+          setError(userCity.message)
         } else {
           setCity(userCity)
         }
-      } catch (error) {
-        console.log('Error al obtener los datos del clima:', error)
+      } else {
+        return {
+          message: userCity.message
+        }
       }
     }
 
-    fetchData()
+    if (!searchMode) {
+      fetchData()
+    }
   }, [])
 
   return (
     <Container>
-      <Header />
-      {city !== null && errorCity === null && (
+      <Header setCity={setCity} setSearchMode={setSearchMode} />
+      {city !== null && (
         <WeatherData
           city={city.city}
-          latitude={city.userLocation.latitude}
-          longitude={city.userLocation.longitude}
+          keyCountry={city.key}
+          setError={setErrorFetch}
         />
       )}
 
-      {city === null && errorCity === null && <p>Cargando datos...</p>}
+      {city === null && errorFetch === null && <p>Cargando datos...</p>}
 
-      {errorCity !== null && (
+      {errorFetch !== null && (
         <CenteredComponent>
           <ErrorContainer>
-            <ErrorText>Error: {errorCity}. Try to reload the page.</ErrorText>
+            <ErrorText>Error: {errorFetch}. Try to reload the page.</ErrorText>
           </ErrorContainer>
         </CenteredComponent>
       )}

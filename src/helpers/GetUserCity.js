@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 function getUserLocation() {
   return new Promise((resolve, reject) => {
     if (navigator.geolocation) {
@@ -22,23 +24,26 @@ function getUserLocation() {
   })
 }
 
-export default async function GetUserCity() {
-  try {
+export default async function GetUserCity(searchTerm = null) {
+  const ACCUWEATHER_API_KEY = import.meta.env.VITE_ACCUWEATHER_API_KEY
+  let url
+
+  if (searchTerm === null) {
     const userLocation = await getUserLocation()
+    url = `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${ACCUWEATHER_API_KEY}&q=${userLocation.latitude},${userLocation.longitude}`
+  } else {
+    url = `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${ACCUWEATHER_API_KEY}&q=${searchTerm}`
+  }
+  try {
+    const response = await axios.get(url)
 
-    const apiKey = import.meta.env.VITE_OPENCAGE_API_KEY
+    const cityData = {
+      city: response.data.LocalizedName,
+      country: response.data.Country.LocalizedName,
+      key: response.data.Key
+    }
 
-    const apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
-      userLocation.latitude + ',' + userLocation.longitude
-    )}&key=${apiKey}`
-
-    const response = await fetch(apiUrl)
-    const data = await response.json()
-
-    const firstResult = data.results[0]
-    const city = firstResult.components.quarter
-
-    return { city, userLocation }
+    return cityData
   } catch (error) {
     return {
       message: error.message
