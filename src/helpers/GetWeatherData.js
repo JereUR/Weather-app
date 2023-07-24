@@ -7,8 +7,6 @@ export default async function GetWeatherData({ key }) {
 
     const weatherData = await axios.get(weatherUrl)
 
-    console.log(weatherData)
-
     if (weatherData.data) {
       const weather = weatherData.data[0]
       const weatherDetails = {

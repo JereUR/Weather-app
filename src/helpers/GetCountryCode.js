@@ -1,4 +1,6 @@
-export default async function getCountryCode({ countryName }) {
+import axios from 'axios'
+
+export default async function getCountryCode(countryName) {
   try {
     const response = await axios.get(
       `https://restcountries.com/v3.1/name/${encodeURIComponent(

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import CityData from './CityData'
 import GetWeatherData from '../helpers/GetWeatherData'
+import styled from 'styled-components'
 
 export default function WeatherData({ city, keyCountry, setError }) {
   const [weatherData, setWeatherData] = useState(null)
@@ -39,20 +40,44 @@ export default function WeatherData({ city, keyCountry, setError }) {
   }, [keyCountry])
 
   return (
-    <div>
+    <WeatherDataContainer>
       <CityData city={city} />
       {weatherData && (
-        <div>
-          <h2>Datos del clima:</h2>
-          <p className={weatherClassName}>
-            Temperatura: {weatherData.temperature}°C
-          </p>
-          <img
+        <>
+          <Temperature color={Colors[weatherClassName]}>
+            {weatherData.temperature}°C
+          </Temperature>
+          <Condition
             src={`./src/assets/weather-icons/${weatherData.condition}.png`}
             alt={weatherData.condition}
           />
-        </div>
+          <Time>{weatherData.time}</Time>
+        </>
       )}
-    </div>
+    </WeatherDataContainer>
   )
 }
+
+const WeatherDataContainer = styled.div`
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+`
+
+const Temperature = styled.p`
+  font-size: 36px;
+  font-weight: bold;
+  color: ${({ color }) => color};
+  margin-bottom: 10px;
+`
+
+const Condition = styled.img`
+  width: 60px;
+`
+
+const Time = styled.p`
+  font-size: 14px;
+  color: #666666;
+`

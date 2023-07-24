@@ -31,22 +31,40 @@ export default async function GetUserCity(searchTerm = null) {
   if (searchTerm === null) {
     const userLocation = await getUserLocation()
     url = `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${ACCUWEATHER_API_KEY}&q=${userLocation.latitude},${userLocation.longitude}`
+
+    try {
+      const response = await axios.get(url)
+      console.log(response)
+
+      const cityData = {
+        city: response.data.LocalizedName,
+        country: response.data.Country.LocalizedName,
+        key: response.data.Key
+      }
+
+      return cityData
+    } catch (error) {
+      return {
+        message: error.message
+      }
+    }
   } else {
     url = `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${ACCUWEATHER_API_KEY}&q=${searchTerm}`
-  }
-  try {
-    const response = await axios.get(url)
 
-    const cityData = {
-      city: response.data.LocalizedName,
-      country: response.data.Country.LocalizedName,
-      key: response.data.Key
-    }
+    try {
+      const response = await axios.get(url)
 
-    return cityData
-  } catch (error) {
-    return {
-      message: error.message
+      const citiesData = response.data.map((item) => ({
+        city: item.LocalizedName,
+        country: item.Country.LocalizedName,
+        key: item.Key
+      }))
+
+      return citiesData
+    } catch (error) {
+      return {
+        message: error.message
+      }
     }
   }
 }

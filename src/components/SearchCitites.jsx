@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 import styled from 'styled-components'
 
 import SearchResults from './SearchResults'
@@ -10,8 +9,6 @@ import GetWeatherData from '../helpers/GetWeatherData'
 import GetCityLocalTime from '../helpers/GetCityLocalTime'
 
 const { headerColor } = Colors
-
-const ACCUWEATHER_API_KEY = import.meta.env.VITE_ACCUWEATHER_API_KEY
 
 export default function SearchCities({ setCity, setSearchMode }) {
   const [searchTerm, setSearchTerm] = useState('')
@@ -38,21 +35,17 @@ export default function SearchCities({ setCity, setSearchMode }) {
     setCity(result)
 
     try {
-      const weatherResponse = await GetWeatherData({ key: result.key })
-
-      const temperature = weatherResponse.data[0].Temperature.Metric.Value
-
       let countryCode = await getCountryCode(result.country)
 
       const cityNameWithUnderscore = result.city.replace(/ /g, '_')
 
       if (countryCode) {
-        const localTime = await GetCityLocalTime(
+        console.log(countryCode)
+        const localTime = await GetCityLocalTime({
           countryCode,
           cityNameWithUnderscore
-        )
+        })
 
-        console.log('Temperatura actual:', temperature)
         console.log('Hora local:', localTime)
       } else {
         console.error('No se pudo obtener el countryCode')
