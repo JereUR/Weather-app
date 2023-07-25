@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import CityData from './CityData'
 import GetWeatherData from '../helpers/GetWeatherData'
 import styled from 'styled-components'
+import { Colors } from '../static/Colors'
 
 export default function WeatherData({ city, keyCountry, setError }) {
   const [weatherData, setWeatherData] = useState(null)
@@ -12,25 +13,18 @@ export default function WeatherData({ city, keyCountry, setError }) {
     const fetchData = async () => {
       const data = await GetWeatherData({ key: keyCountry })
       if (!data.message) {
-        let condition = data.condition.replace(/\//g, '')
-        condition = condition.replace(' ', '-')
-        const weather = {
-          temperature: data.temperature,
-          condition: condition
-        }
-
-        if (weather.temperature < 5) {
+        if (data.temperature < 5) {
           setWeatherClassName('very-cold')
-        } else if (weather.temperature >= 5 && weather.temperature < 15) {
+        } else if (data.temperature >= 5 && data.temperature < 15) {
           setWeatherClassName('cold')
-        } else if (weather.temperature >= 15 && weather.temperature < 23) {
+        } else if (data.temperature >= 15 && data.temperature < 23) {
           setWeatherClassName('normal')
-        } else if (weather.temperature >= 23 && weather.temperature < 30) {
+        } else if (data.temperature >= 23 && data.temperature < 30) {
           setWeatherClassName('hot')
         } else {
           setWeatherClassName('very-hot')
         }
-        setWeatherData(weather)
+        setWeatherData(data)
       } else {
         setError(data.message)
       }
@@ -44,26 +38,24 @@ export default function WeatherData({ city, keyCountry, setError }) {
       <CityData city={city} />
       {weatherData && (
         <>
-          <Temperature color={Colors[weatherClassName]}>
+          <Temperature className={weatherClassName}>
             {weatherData.temperature}°C
           </Temperature>
-          <Condition
-            src={`./src/assets/weather-icons/${weatherData.condition}.png`}
+          <Icon
+            src={`./src/assets/weather-icons/${weatherData.weatherIcon}.png`}
             alt={weatherData.condition}
           />
-          <Time>{weatherData.time}</Time>
+          <Condition>{weatherData.condition}</Condition>
         </>
       )}
     </WeatherDataContainer>
   )
 }
 
-const WeatherDataContainer = styled.div`
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+const Condition = styled.p``
+
+const Icon = styled.img`
+  width: 60px;
 `
 
 const Temperature = styled.p`
@@ -73,11 +65,15 @@ const Temperature = styled.p`
   margin-bottom: 10px;
 `
 
-const Condition = styled.img`
-  width: 60px;
-`
-
 const Time = styled.p`
   font-size: 14px;
   color: #666666;
+`
+
+const WeatherDataContainer = styled.div`
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
 `
