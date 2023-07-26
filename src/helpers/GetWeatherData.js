@@ -4,12 +4,8 @@ export default async function GetWeatherData({ key }) {
   const apiKey = import.meta.env.VITE_ACCUWEATHER_API_KEY
   try {
     const weatherUrl = `https://dataservice.accuweather.com/currentconditions/v1/${key}?apikey=${apiKey}`
-    const forecastUrl = `http://dataservice.accuweather.com/forecasts/v1/daily/10day/${key}?apikey=${apiKey}`
 
     const weatherData = await axios.get(weatherUrl)
-
-    const forecastData = await axios.get(forecastUrl)
-    console.log(forecastData)
 
     if (weatherData.data) {
       const weather = weatherData.data[0]
