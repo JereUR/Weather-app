@@ -34,7 +34,6 @@ export default async function GetUserCity(searchTerm = null) {
 
     try {
       const response = await axios.get(url)
-      console.log(response)
 
       const cityData = {
         city: response.data.LocalizedName,
