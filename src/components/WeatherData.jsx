@@ -4,9 +4,12 @@ import CityData from './CityData'
 import GetWeatherData from '../helpers/GetWeatherData'
 import styled from 'styled-components'
 import { Colors } from '../static/Colors'
+import GetWeatherDailyData from '../helpers/GetWeatherDailyData'
+import WeatherDailyData from './WeatherDailyData'
 
 export default function WeatherData({ city, keyCountry, setError }) {
   const [weatherData, setWeatherData] = useState(null)
+  const [weatherDailyData, setWeatherDailyData] = useState(null)
   const [weatherClassName, setWeatherClassName] = useState('')
 
   useEffect(() => {
@@ -30,25 +33,39 @@ export default function WeatherData({ city, keyCountry, setError }) {
       }
     }
 
+    const fetchDailyData = async () => {
+      const data = await GetWeatherDailyData({ key: keyCountry })
+      if (!data.message) {
+        console.log(data)
+        setWeatherDailyData(data)
+      } else {
+        setError(data.message)
+      }
+    }
+
     fetchData()
+    fetchDailyData()
   }, [keyCountry])
 
   return (
-    <WeatherDataContainer>
-      <CityData city={city} />
-      {weatherData && (
-        <>
-          <Temperature className={weatherClassName}>
-            {weatherData.temperature}°C
-          </Temperature>
-          <Icon
-            src={`./src/assets/weather-icons/${weatherData.weatherIcon}.png`}
-            alt={weatherData.condition}
-          />
-          <Condition>{weatherData.condition}</Condition>
-        </>
-      )}
-    </WeatherDataContainer>
+    <WeatherContainer>
+      <WeatherDataContainer>
+        <CityData city={city} />
+        {weatherData && (
+          <>
+            <Temperature className={weatherClassName}>
+              {weatherData.temperature}°C
+            </Temperature>
+            <Icon
+              src={`./src/assets/weather-icons/${weatherData.weatherIcon}.png`}
+              alt={weatherData.condition}
+            />
+            <Condition>{weatherData.condition}</Condition>
+          </>
+        )}
+      </WeatherDataContainer>
+      <WeatherDailyData data={weatherDailyData} />
+    </WeatherContainer>
   )
 }
 
@@ -65,10 +82,7 @@ const Temperature = styled.p`
   margin-bottom: 10px;
 `
 
-const Time = styled.p`
-  font-size: 14px;
-  color: #666666;
-`
+const WeatherContainer = styled.div``
 
 const WeatherDataContainer = styled.div`
   background-color: #ffffff;
