@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 export default function WeatherDailyData({ data }) {
   const dataLocal = {
@@ -87,10 +87,23 @@ export default function WeatherDailyData({ data }) {
   )
 }
 
+const gradientAnimation = keyframes`
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+`
+
 const DailyDetails = styled.div`
   display: flex;
   justify-content: center;
-  border: 1px solid #000;
+  border: 2px solid #70c1b3;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   margin: 20px 100px;
 `
@@ -100,18 +113,44 @@ const DailyWeatherData = styled.div`
   text-align: center;
 `
 
-const Icon = styled.img``
+const Icon = styled.img`
+  width: 50px;
+  height: 50px;
+  margin: 10px 0;
+`
 
-const Intensity = styled.p``
+const Intensity = styled.p`
+  color: #006994;
+  font-weight: bold;
+`
 
-const MaxTemp = styled.p``
+const MaxTemp = styled.p`
+  font-size: 24px;
+  color: #222;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+`
 
-const MinTemp = styled.p``
+const MinTemp = styled.p`
+  font-size: 24px;
+  color: #222;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+`
+
+const Precipitation = styled.p`
+  color: #006994;
+`
+
+const PrecipitationDetails = styled.div`
+  color: #333;
+`
 
 const TempContainer = styled.div`
   margin: 0 20px;
   text-align: center;
-  border-right: 1px solid #000;
+  border-right: 1px solid #333;
+  padding-right: 20px;
 
   &:first-child {
     padding-right: 40px;
@@ -122,30 +161,55 @@ const TempContainer = styled.div`
   }
 `
 
-const Precipitation = styled.p``
-
-const PrecipitationDetails = styled.div``
-
 const TemperatureData = styled.div`
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 `
 
-const Title = styled.p``
+const Title = styled.p`
+  font-size: 28px;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 10px;
+`
 
-const TitleData = styled.p``
+const TitleData = styled.p`
+  font-size: 20px;
+  color: #006994;
+`
 
-const TitleDetails = styled.p``
+const TitleDetails = styled.p`
+  font-size: 24px;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 10px;
+`
 
-const TitleTemp = styled.p``
+const TitleTemp = styled.p`
+  font-size: 20px;
+  color: #333;
+`
 
-const Type = styled.p``
+const Type = styled.p`
+  color: #006994;
+  font-weight: bold;
+`
 
 const WeatherDailyContainer = styled.div`
   text-align: center;
   padding: 20px;
+  background: linear-gradient(45deg, #70c1b3, #b2dbbf, #f3ffbd);
+  background-size: 200% 200%;
+  animation: ${gradientAnimation} 8s linear infinite;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: #333;
 `
 
 const WeatherDetails = styled.div`
   text-align: center;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  padding: 10px;
 `
