@@ -17,6 +17,8 @@ export default async function GetWeatherData({ key }) {
         weatherIcon: weather.WeatherIcon
       }
 
+      console.log(weatherDetails)
+
       return weatherDetails
     } else {
       throw new Error('No se encontraron datos climáticos')

@@ -7,7 +7,6 @@ export default async function getCountryCode(countryName) {
         countryName
       )}?fullText=true`
     )
-    console.log(response)
 
     const countryCode = response.data[0]?.region
     if (countryCode === 'Americas') {
