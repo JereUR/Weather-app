@@ -87,23 +87,9 @@ export default function WeatherDailyData({ data }) {
   )
 }
 
-const gradientAnimation = keyframes`
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-`
-
 const DailyDetails = styled.div`
   display: flex;
   justify-content: center;
-  border: 2px solid #70c1b3;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   margin: 20px 100px;
 `
@@ -198,12 +184,14 @@ const Type = styled.p`
 
 const WeatherDailyContainer = styled.div`
   text-align: center;
-  padding: 20px;
-  background: linear-gradient(45deg, #70c1b3, #b2dbbf, #f3ffbd);
+  padding: 25px;
+  background-color: transparent;
   background-size: 200% 200%;
-  animation: ${gradientAnimation} 8s linear infinite;
   border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+  margin: 20px auto;
   color: #333;
 `
 
