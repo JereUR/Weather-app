@@ -40,7 +40,6 @@ export default function SearchCities({ setCity, setSearchMode }) {
       const cityNameWithUnderscore = result.city.replace(/ /g, '_')
 
       if (countryCode) {
-        console.log(countryCode)
         const localTime = await GetCityLocalTime({
           countryCode,
           cityNameWithUnderscore
