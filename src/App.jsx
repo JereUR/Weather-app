@@ -5,6 +5,7 @@ import WeatherData from './components/WeatherData'
 import GetUserCity from './helpers/GetUserCity'
 import Header from './components/Header'
 import { Colors } from './static/Colors'
+import Loader from './components/Loader'
 
 const { errorText, backgroundError } = Colors
 
@@ -32,7 +33,7 @@ export default function App() {
     if (!searchMode) {
       fetchData()
     }
-  }, [])
+  }, [searchMode])
 
   return (
     <Container>
@@ -42,10 +43,12 @@ export default function App() {
           city={city.city}
           keyCountry={city.key}
           setError={setErrorFetch}
+          searchMode={searchMode}
+          setSearchMode={setSearchMode}
         />
       )}
 
-      {city === null && errorFetch === null && <p>Cargando datos...</p>}
+      {city === null && errorFetch === null && <Loader />}
 
       {errorFetch !== null && (
         <CenteredComponent>
