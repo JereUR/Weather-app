@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { TbTemperatureCelsius } from 'react-icons/tb'
 
 import CityData from './CityData'
 import GetWeatherData from '../helpers/GetWeatherData'
@@ -7,7 +8,13 @@ import { Colors } from '../static/Colors'
 import GetWeatherDailyData from '../helpers/GetWeatherDailyData'
 import WeatherDailyData from './WeatherDailyData'
 
-export default function WeatherData({ city, keyCountry, setError }) {
+export default function WeatherData({
+  city,
+  keyCountry,
+  setError,
+  searchMode,
+  setSearchMode
+}) {
   const [weatherData, setWeatherData] = useState(null)
   const [weatherDailyData, setWeatherDailyData] = useState(null)
   const [weatherClassName, setWeatherClassName] = useState('')
@@ -36,7 +43,6 @@ export default function WeatherData({ city, keyCountry, setError }) {
     const fetchDailyData = async () => {
       const data = await GetWeatherDailyData({ key: keyCountry })
       if (!data.message) {
-        console.log(data)
         setWeatherDailyData(data)
       } else {
         setError(data.message)
@@ -45,49 +51,73 @@ export default function WeatherData({ city, keyCountry, setError }) {
 
     fetchData()
     fetchDailyData()
-  }, [keyCountry])
+  }, [keyCountry, city])
 
   return (
-    <WeatherContainer>
-      <WeatherDataContainer>
-        <CityData city={city} />
-        {weatherData && (
-          <>
+    <>
+      {weatherData && (
+        <WeatherContainer
+          className={weatherData.day ? 'day-weather' : 'night-weather'}
+        >
+          <WeatherDataContainer>
+            <CityData city={city} />
             <Temperature className={weatherClassName}>
-              {weatherData.temperature}°C
+              {weatherData.temperature} <TbTemperatureCelsius size={52} />
             </Temperature>
             <Icon
               src={`./src/assets/weather-icons/${weatherData.weatherIcon}.png`}
               alt={weatherData.condition}
             />
-            <Condition>{weatherData.condition}</Condition>
-          </>
-        )}
-      </WeatherDataContainer>
-      <WeatherDailyData data={weatherDailyData} />
-    </WeatherContainer>
+            <Condition>
+              <b>Condition: </b>
+              {weatherData.condition}
+            </Condition>
+          </WeatherDataContainer>
+          <WeatherDailyData data={weatherDailyData} />
+          {searchMode && (
+            <Button onClick={() => setSearchMode(false)}>
+              Go to own location
+            </Button>
+          )}
+        </WeatherContainer>
+      )}
+    </>
   )
 }
 
-const Condition = styled.p``
+const Button = styled.button`
+  cursor: pointer;
+  padding: 10px 30px;
+`
+
+const Condition = styled.p`
+  font-size: 20px;
+  margin: 0;
+  color: #ddd;
+`
 
 const Icon = styled.img`
-  width: 60px;
+  width: 150px;
+  margin: 20px 0;
 `
 
 const Temperature = styled.p`
-  font-size: 36px;
+  font-size: 48px;
   font-weight: bold;
   color: ${({ color }) => color};
   margin-bottom: 10px;
 `
 
-const WeatherContainer = styled.div``
+const WeatherContainer = styled.div`
+  padding: 50px 0;
+`
 
 const WeatherDataContainer = styled.div`
-  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: transparent;
   padding: 20px;
+  margin-bottom: 50px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
 `
