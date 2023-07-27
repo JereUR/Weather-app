@@ -1,7 +1,15 @@
 import React from 'react'
+import styled from 'styled-components'
+import Loader from './Loader'
+import { GrMapLocation } from 'react-icons/gr'
 
 export default function CityData({ city }) {
-  return (
-    <>{city ? <p>{city}</p> : <p>Cargando la ubicación del usuario...</p>}</>
-  )
+  return <>{city ? <CityName>🌍 {city}</CityName> : <Loader />}</>
 }
+
+const CityName = styled.p`
+  color: #ddd;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: -10px;
+`
