@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
-import { TbTemperatureCelsius } from 'react-icons/tb'
 
-import CityData from './CityData'
 import GetWeatherData from '../helpers/GetWeatherData'
 import styled from 'styled-components'
-import { Colors } from '../static/Colors'
 import GetWeatherDailyData from '../helpers/GetWeatherDailyData'
 import WeatherDailyData from './WeatherDailyData'
+import ActualWeather from './ActualWeather'
 
 export default function WeatherData({
   city,
@@ -56,29 +54,23 @@ export default function WeatherData({
   return (
     <>
       {weatherData && (
-        <WeatherContainer
-          className={weatherData.day ? 'day-weather' : 'night-weather'}
-        >
+        <WeatherContainer>
           <WeatherDataContainer>
-            <CityData city={city} />
-            <Temperature className={weatherClassName}>
-              {weatherData.temperature} <TbTemperatureCelsius size={52} />
-            </Temperature>
-            <Icon
-              src={`./src/assets/weather-icons/${weatherData.weatherIcon}.png`}
-              alt={weatherData.condition}
+            <ActualWeather
+              city={city}
+              weatherData={weatherData}
+              weatherClassName={weatherClassName}
             />
-            <Condition>
-              <b>Condition: </b>
-              {weatherData.condition}
-            </Condition>
+            <WeatherDailyData data={weatherDailyData} />
+            {searchMode && (
+              <Button onClick={() => setSearchMode(false)}>
+                Go to own location
+              </Button>
+            )}
           </WeatherDataContainer>
-          <WeatherDailyData data={weatherDailyData} />
-          {searchMode && (
-            <Button onClick={() => setSearchMode(false)}>
-              Go to own location
-            </Button>
-          )}
+          <WeatherTime
+            className={weatherData.day ? 'day-weather' : 'night-weather'}
+          />
         </WeatherContainer>
       )}
     </>
@@ -90,34 +82,25 @@ const Button = styled.button`
   padding: 10px 30px;
 `
 
-const Condition = styled.p`
-  font-size: 20px;
-  margin: 0;
-  color: #ddd;
-`
-
-const Icon = styled.img`
-  width: 150px;
-  margin: 20px 0;
-`
-
-const Temperature = styled.p`
-  font-size: 48px;
-  font-weight: bold;
-  color: ${({ color }) => color};
-  margin-bottom: 10px;
-`
-
 const WeatherContainer = styled.div`
   padding: 50px 0;
+  display: flex;
 `
 
 const WeatherDataContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex: 2;
+  text-align: center;
   background-color: transparent;
   padding: 20px;
   margin-bottom: 50px;
   border-radius: 10px;
+`
+
+const WeatherTime = styled.div`
+  flex: 1;
+  text-align: center;
+  margin: 1vw 10vw 30vw 10vw;
+  border-radius: 20px;
+  border: 1px solid #888;
+  box-shadow: 5px 10px 10px #666;
 `

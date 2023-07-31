@@ -8,7 +8,6 @@ export default function CityData({ city }) {
 }
 
 const CityName = styled.p`
-  color: #ddd;
   font-size: 36px;
   font-weight: bold;
   margin-bottom: -10px;

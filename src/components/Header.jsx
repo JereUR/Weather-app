@@ -21,8 +21,8 @@ export default function Header({ setCity, setSearchMode }) {
 }
 
 const HeaderContainer = styled.header`
-  background-color: ${headerColor};
-  color: #fff;
+  background-color: #f2f9f9;
+  color: black;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -30,14 +30,17 @@ const HeaderContainer = styled.header`
 `
 
 const LogoContainer = styled.div`
-  margin: 10px 30px;
+  text-align: center;
+  margin: 10px 5vw;
 
   img {
     height: 100px;
   }
 
   h1 {
-    margin: 0;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    font-style: italic;
+    margin-bottom: 0;
     font-size: 26px;
   }
 `

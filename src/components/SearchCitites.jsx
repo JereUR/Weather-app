@@ -57,7 +57,7 @@ export default function SearchCities({ setCity, setSearchMode }) {
   return (
     <SearchContainer>
       <SearchInput
-        type="text"
+        type="search"
         value={searchTerm}
         onChange={handleSearch}
         placeholder="Buscar ciudad..."
@@ -80,11 +80,12 @@ const SearchContainer = styled.div`
 
 const SearchInput = styled.input`
   padding: 8px;
-  margin-right: 10px;
-  border: none;
+  margin-right: 5vw;
   border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.8);
-  color: ${headerColor};
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  color: #444;
   font-size: 16px;
   outline: none;
   width: 200px;
