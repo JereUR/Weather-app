@@ -44,7 +44,7 @@ export default function ActualWeather({ city, weatherData, weatherClassName }) {
       <CityContainer>
         <CityData city={city} />
         <IconSection>
-          <p>👀 The weather looks like...</p>
+          <p>👀 The sky looks like...</p>
           <Icon
             src={`./src/assets/weather-icons/${weatherData.weatherIcon}.png`}
             alt={weatherData.condition}
