@@ -14,27 +14,27 @@ const {
 } = Colors
 
 export default function ActualWeather({ city, weatherData, weatherClassName }) {
-  const [shadowColor, setShadowColor] = useState('')
+  const [colortemperature, setColortemperature] = useState('')
 
   useEffect(() => {
     switch (weatherClassName) {
       case 'very-cold':
-        setShadowColor(`1px 5px 5px ${veryColdTemperature}`)
+        setColortemperature(veryColdTemperature)
         break
       case 'cold':
-        setShadowColor(`1px 5px 5px ${coldTemperature}`)
+        setColortemperature(coldTemperature)
         break
       case 'normal':
-        setShadowColor(`1px 5px 5px ${normalTemperature}`)
+        setColortemperature(normalTemperature)
         break
       case 'hot':
-        setShadowColor(`1px 5px 5px ${hotTemperature}`)
+        setColortemperature(hotTemperature)
         break
       case 'very-hot':
-        setShadowColor(`1px 5px 5px ${veryHotTemperature}`)
+        setColortemperature(veryHotTemperature)
         break
       default:
-        setShadowColor('1px 5px 5px black')
+        setColortemperature('black')
         break
     }
   }, [weatherClassName])
@@ -43,7 +43,7 @@ export default function ActualWeather({ city, weatherData, weatherClassName }) {
     <DataContainer>
       <CityContainer>
         <CityData city={city} />
-        <IconSection>
+        <IconSection colortemperature={colortemperature}>
           <p>👀 The sky looks like...</p>
           <Icon
             src={`./src/assets/weather-icons/${weatherData.weatherIcon}.png`}
@@ -51,8 +51,8 @@ export default function ActualWeather({ city, weatherData, weatherClassName }) {
           />
         </IconSection>
       </CityContainer>
-      <WeatherContainer shadowColor={shadowColor}>
-        <Temperature className={weatherClassName} color={shadowColor}>
+      <WeatherContainer colortemperature={colortemperature}>
+        <Temperature className={weatherClassName} color={colortemperature}>
           {weatherData.temperature} <TbTemperatureCelsius size={52} />
         </Temperature>
         <Condition>
@@ -85,11 +85,15 @@ const Icon = styled.img`
 `
 
 const IconSection = styled.div`
+  box-shadow: ${({ colortemperature }) =>
+    `2px 2px 2px 2px ${colortemperature}`};
+  border-radius: 10px;
+  padding: 10px 50px;
   margin-top: 70px;
   margin-left: 100px;
 
   p {
-    font-weight: 500;
+    font-weight: bold;
     font-style: italic;
   }
 `
@@ -103,7 +107,7 @@ const Temperature = styled.p`
 
 const WeatherContainer = styled.div`
   padding: 50px;
-  box-shadow: ${({ shadowColor }) => shadowColor};
+  box-shadow: ${({ colortemperature }) => `1px 5px 5px ${colortemperature}`};
   border-radius: 50%;
   margin-top: 50px;
   margin-bottom: 50px;

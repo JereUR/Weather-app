@@ -34,55 +34,57 @@ export default function WeatherDailyData({ data }) {
   return (
     <WeatherDailyContainer>
       <Title>Weather For Tomorrow</Title>
-      <TemperatureData>
-        <TempContainer>
-          <TitleTemp>Minimum</TitleTemp>
-          <MinTemp>{minCelsius}°C</MinTemp>
-        </TempContainer>
-        <TempContainer>
-          <TitleTemp>Maximum</TitleTemp>
-          <MaxTemp>{maxCelsius}°C</MaxTemp>
-        </TempContainer>
-      </TemperatureData>
-      <WeatherDetails>
-        <TitleDetails>Details</TitleDetails>
-        <DailyDetails>
-          <DailyWeatherData>
-            <TitleData>Day Info</TitleData>
-            <Icon
-              src={`./src/assets/weather-icons/${dataLocal.day.weatherIcon}.png`}
-            />
-            <Precipitation>
-              Precipitation: {dataLocal.day.precipitation ? 'Yes' : 'No'}
-            </Precipitation>
-            {dataLocal.day.precipitation && (
-              <PrecipitationDetails>
-                <Intensity>
-                  Intensity: {dataLocal.day.precipitationIntensity}
-                </Intensity>
-                <Type>Type: {dataLocal.day.precipitationType}</Type>
-              </PrecipitationDetails>
-            )}
-          </DailyWeatherData>
-          <DailyWeatherData>
-            <TitleData>Night Info</TitleData>
-            <Icon
-              src={`./src/assets/weather-icons/${dataLocal.night.weatherIcon}.png`}
-            />
-            <Precipitation>
-              Precipitation: {dataLocal.night.precipitation ? 'Yes' : 'No'}
-            </Precipitation>
-            {dataLocal.night.precipitation && (
-              <PrecipitationDetails>
-                <Intensity>
-                  Intensity: {dataLocal.night.precipitationIntensity}
-                </Intensity>
-                <Type>Type: {dataLocal.night.precipitationType}</Type>
-              </PrecipitationDetails>
-            )}
-          </DailyWeatherData>
-        </DailyDetails>
-      </WeatherDetails>
+      <WeatherContainer>
+        <TemperatureData>
+          <TempContainer>
+            <TitleTemp>Minimum</TitleTemp>
+            <MinTemp>{minCelsius}°C</MinTemp>
+          </TempContainer>
+          <TempContainer>
+            <TitleTemp>Maximum</TitleTemp>
+            <MaxTemp>{maxCelsius}°C</MaxTemp>
+          </TempContainer>
+        </TemperatureData>
+        <WeatherDetails>
+          <TitleDetails>Details</TitleDetails>
+          <DailyDetails>
+            <DailyWeatherData>
+              <TitleData>Day Info</TitleData>
+              <Icon
+                src={`./src/assets/weather-icons/${dataLocal.day.weatherIcon}.png`}
+              />
+              <Precipitation>
+                Precipitation: {dataLocal.day.precipitation ? 'Yes' : 'No'}
+              </Precipitation>
+              {dataLocal.day.precipitation && (
+                <PrecipitationDetails>
+                  <Intensity>
+                    Intensity: {dataLocal.day.precipitationIntensity}
+                  </Intensity>
+                  <Type>Type: {dataLocal.day.precipitationType}</Type>
+                </PrecipitationDetails>
+              )}
+            </DailyWeatherData>
+            <DailyWeatherData>
+              <TitleData>Night Info</TitleData>
+              <Icon
+                src={`./src/assets/weather-icons/${dataLocal.night.weatherIcon}.png`}
+              />
+              <Precipitation>
+                Precipitation: {dataLocal.night.precipitation ? 'Yes' : 'No'}
+              </Precipitation>
+              {dataLocal.night.precipitation && (
+                <PrecipitationDetails>
+                  <Intensity>
+                    Intensity: {dataLocal.night.precipitationIntensity}
+                  </Intensity>
+                  <Type>Type: {dataLocal.night.precipitationType}</Type>
+                </PrecipitationDetails>
+              )}
+            </DailyWeatherData>
+          </DailyDetails>
+        </WeatherDetails>
+      </WeatherContainer>
     </WeatherDailyContainer>
   )
 }
@@ -180,6 +182,10 @@ const TitleTemp = styled.p`
 const Type = styled.p`
   color: #006994;
   font-weight: bold;
+`
+
+const WeatherContainer = styled.div`
+  display: flex;
 `
 
 const WeatherDailyContainer = styled.div`
