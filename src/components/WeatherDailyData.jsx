@@ -1,47 +1,35 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
+
+import { Colors } from '../static/Colors'
+
+const { coldTemperature, veryHotTemperature } = Colors
 
 export default function WeatherDailyData({ data }) {
-  const dataLocal = {
-    day: {
-      precipitation: false,
-      precipitationIntensity: undefined,
-      precipitationType: undefined,
-      weatherIcon: 6
-    },
-    night: {
-      precipitation: true,
-      precipitationIntensity: 'Light',
-      precipitationType: 'Rain',
-      weatherIcon: 18
-    },
-    temperatureMax: 57,
-    temperatureMin: 51,
-    unitMax: 'F',
-    unitMin: 'F'
-  }
-  let minCelsius = dataLocal.temperatureMin
-  let maxCelsius = dataLocal.temperatureMax
+  let minCelsius = data.temperatureMin
+  let maxCelsius = data.temperatureMax
 
-  if (dataLocal.unitMin === 'F') {
-    minCelsius = Math.floor((dataLocal.temperatureMin - 32) * (5 / 9))
+  if (data.unitMin === 'F') {
+    minCelsius = Math.floor((data.temperatureMin - 32) * (5 / 9))
   }
 
-  if (dataLocal.unitMax === 'F') {
-    maxCelsius = Math.floor((dataLocal.temperatureMax - 32) * (5 / 9))
+  if (data.unitMax === 'F') {
+    maxCelsius = Math.floor((data.temperatureMax - 32) * (5 / 9))
   }
 
   return (
     <WeatherDailyContainer>
-      <Title>Weather For Tomorrow</Title>
+      <TitleContainer>
+        <Title>Weather For Tomorrow</Title>
+      </TitleContainer>
       <WeatherContainer>
         <TemperatureData>
           <TempContainer>
-            <TitleTemp>Minimum</TitleTemp>
+            <TitleTempMin>Minimum</TitleTempMin>
             <MinTemp>{minCelsius}°C</MinTemp>
           </TempContainer>
           <TempContainer>
-            <TitleTemp>Maximum</TitleTemp>
+            <TitleTempMax>Maximum</TitleTempMax>
             <MaxTemp>{maxCelsius}°C</MaxTemp>
           </TempContainer>
         </TemperatureData>
@@ -51,36 +39,54 @@ export default function WeatherDailyData({ data }) {
             <DailyWeatherData>
               <TitleData>Day Info</TitleData>
               <Icon
-                src={`./src/assets/weather-icons/${dataLocal.day.weatherIcon}.png`}
+                src={`./src/assets/weather-icons/${data.day.weatherIcon}.png`}
               />
-              <Precipitation>
-                Precipitation: {dataLocal.day.precipitation ? 'Yes' : 'No'}
-              </Precipitation>
-              {dataLocal.day.precipitation && (
-                <PrecipitationDetails>
-                  <Intensity>
-                    Intensity: {dataLocal.day.precipitationIntensity}
-                  </Intensity>
-                  <Type>Type: {dataLocal.day.precipitationType}</Type>
-                </PrecipitationDetails>
-              )}
+              <InfoWeather>
+                <Precipitation>
+                  <b>Precipitation</b>
+                  <br />
+                  {data.day.precipitation ? 'Yes' : 'No'}
+                </Precipitation>
+                {data.day.precipitation && (
+                  <PrecipitationDetails>
+                    <Intensity>
+                      <b>Intensity</b>
+                      <br />
+                      {data.day.precipitationIntensity}
+                    </Intensity>
+                    <Type>
+                      <b>Type</b> <br />
+                      {data.day.precipitationType}
+                    </Type>
+                  </PrecipitationDetails>
+                )}
+              </InfoWeather>
             </DailyWeatherData>
             <DailyWeatherData>
               <TitleData>Night Info</TitleData>
               <Icon
-                src={`./src/assets/weather-icons/${dataLocal.night.weatherIcon}.png`}
+                src={`./src/assets/weather-icons/${data.night.weatherIcon}.png`}
               />
-              <Precipitation>
-                Precipitation: {dataLocal.night.precipitation ? 'Yes' : 'No'}
-              </Precipitation>
-              {dataLocal.night.precipitation && (
-                <PrecipitationDetails>
-                  <Intensity>
-                    Intensity: {dataLocal.night.precipitationIntensity}
-                  </Intensity>
-                  <Type>Type: {dataLocal.night.precipitationType}</Type>
-                </PrecipitationDetails>
-              )}
+              <InfoWeather>
+                <Precipitation>
+                  <b>Precipitation</b>
+                  <br />
+                  {data.night.precipitation ? 'Yes' : 'No'}
+                </Precipitation>
+                {data.night.precipitation && (
+                  <PrecipitationDetails>
+                    <Intensity>
+                      <b>Intensity</b> <br />
+                      {data.night.precipitationIntensity}
+                    </Intensity>
+                    <Type>
+                      <b>Type</b>
+                      <br />
+                      {data.night.precipitationType}
+                    </Type>
+                  </PrecipitationDetails>
+                )}
+              </InfoWeather>
             </DailyWeatherData>
           </DailyDetails>
         </WeatherDetails>
@@ -97,40 +103,58 @@ const DailyDetails = styled.div`
 `
 
 const DailyWeatherData = styled.div`
-  margin: 10px 50px;
+  margin: 10px;
   text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 5px 5px #ddd;
+
+  &:first-child {
+    margin-right: 100px;
+  }
 `
 
 const Icon = styled.img`
-  width: 50px;
   height: 50px;
+  width: auto;
   margin: 10px 0;
 `
 
+const InfoWeather = styled.div`
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 10px;
+  padding: 5px 20px;
+  font-size: 18px;
+`
+
 const Intensity = styled.p`
-  color: #006994;
-  font-weight: bold;
+  font-size: 16px;
+  margin-left: 50px;
+  margin-right: 50px;
 `
 
 const MaxTemp = styled.p`
-  font-size: 24px;
+  font-size: 18px;
   color: #222;
   font-weight: bold;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 `
 
 const MinTemp = styled.p`
-  font-size: 24px;
+  font-size: 18px;
   color: #222;
   font-weight: bold;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 `
 
 const Precipitation = styled.p`
-  color: #006994;
+  font-size: 16px;
 `
 
 const PrecipitationDetails = styled.div`
+  display: flex;
   color: #333;
 `
 
@@ -152,36 +176,61 @@ const TempContainer = styled.div`
 const TemperatureData = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
 `
 
 const Title = styled.p`
-  font-size: 28px;
+  font-size: 32px;
   color: #333;
   font-weight: bold;
+`
+
+const TitleContainer = styled.div`
+  position: relative;
+  padding: 20px;
   margin-bottom: 10px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 15px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent);
+    pointer-events: none;
+  }
 `
 
 const TitleData = styled.p`
-  font-size: 20px;
-  color: #006994;
+  font-size: 22px;
+  font-style: italic;
+  font-weight: bold;
+  text-decoration: underline;
 `
 
 const TitleDetails = styled.p`
-  font-size: 24px;
+  font-size: 32px;
+  text-shadow: 0px 2px 2px #ccc;
   color: #333;
   font-weight: bold;
-  margin-bottom: 10px;
 `
 
-const TitleTemp = styled.p`
-  font-size: 20px;
-  color: #333;
+const TitleTempMax = styled.p`
+  font-size: 16px;
+  font-weight: bold;
+  color: ${veryHotTemperature};
+`
+
+const TitleTempMin = styled(TitleTempMax)`
+  color: ${coldTemperature};
 `
 
 const Type = styled.p`
-  color: #006994;
-  font-weight: bold;
+  font-size: 16px;
 `
 
 const WeatherContainer = styled.div`
@@ -190,20 +239,20 @@ const WeatherContainer = styled.div`
 
 const WeatherDailyContainer = styled.div`
   text-align: center;
-  padding: 25px;
+  padding: 5px 25px;
   background-color: transparent;
   background-size: 200% 200%;
   border-radius: 15px;
   background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: fit-content;
-  margin: 20px auto;
+  margin: 10px auto;
+  margin-left: 5vw;
   color: #333;
 `
 
 const WeatherDetails = styled.div`
   text-align: center;
-  margin-bottom: 20px;
   border-radius: 10px;
   padding: 10px;
 `

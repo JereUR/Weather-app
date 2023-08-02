@@ -23,11 +23,11 @@ export default function WeatherData({
       if (!data.message) {
         if (data.temperature < 5) {
           setWeatherClassName('very-cold')
-        } else if (data.temperature >= 5 && data.temperature < 15) {
+        } else if (data.temperature >= 5 && data.temperature < 18) {
           setWeatherClassName('cold')
-        } else if (data.temperature >= 15 && data.temperature < 23) {
+        } else if (data.temperature >= 18 && data.temperature < 26) {
           setWeatherClassName('normal')
-        } else if (data.temperature >= 23 && data.temperature < 30) {
+        } else if (data.temperature >= 26 && data.temperature < 30) {
           setWeatherClassName('hot')
         } else {
           setWeatherClassName('very-hot')
@@ -68,9 +68,6 @@ export default function WeatherData({
               </Button>
             )}
           </WeatherDataContainer>
-          <WeatherTime
-            className={weatherData.day ? 'day-weather' : 'night-weather'}
-          />
         </WeatherContainer>
       )}
     </>
@@ -94,13 +91,4 @@ const WeatherDataContainer = styled.div`
   padding: 20px;
   margin-bottom: 50px;
   border-radius: 10px;
-`
-
-const WeatherTime = styled.div`
-  flex: 1;
-  text-align: center;
-  margin: 1vw 10vw 30vw 10vw;
-  border-radius: 20px;
-  border: 1px solid #888;
-  box-shadow: 5px 10px 10px #666;
 `

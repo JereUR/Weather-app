@@ -60,6 +60,9 @@ export default function ActualWeather({ city, weatherData, weatherClassName }) {
           {weatherData.condition}
         </Condition>
       </WeatherContainer>
+      <WeatherTime
+        className={weatherData.day ? 'day-weather' : 'night-weather'}
+      />
     </DataContainer>
   )
 }
@@ -78,6 +81,7 @@ const Condition = styled.p`
 
 const DataContainer = styled.div`
   display: flex;
+  margin-bottom: 50px;
 `
 
 const Icon = styled.img`
@@ -111,4 +115,16 @@ const WeatherContainer = styled.div`
   border-radius: 50%;
   margin-top: 50px;
   margin-bottom: 50px;
+`
+
+const WeatherTime = styled.div`
+  flex: 1;
+  text-align: center;
+  border-radius: 20px;
+  max-width: 300px;
+  max-height: 200px;
+  margin-left: 10%;
+  margin-top: 5%;
+  border: 1px solid #888;
+  box-shadow: 5px 10px 10px #666;
 `
