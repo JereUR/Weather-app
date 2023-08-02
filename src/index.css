@@ -106,3 +106,12 @@ body {
     transform: rotate(360deg);
   }
 }
+
+/* Weather Info Styles */
+
+.background {
+  fill: linear-gradient(90deg, #5936b4 0%, #362a84 100%);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}

@@ -61,12 +61,13 @@ export default function WeatherData({
               weatherData={weatherData}
               weatherClassName={weatherClassName}
             />
-            <WeatherDailyData data={weatherDailyData} />
-            {searchMode && (
-              <Button onClick={() => setSearchMode(false)}>
-                Go to own location
-              </Button>
-            )}
+            <WeatherDailyDataContainer>
+              <WeatherDailyData
+                data={weatherDailyData}
+                searchMode={searchMode}
+                setSearchMode={setSearchMode}
+              />
+            </WeatherDailyDataContainer>
           </WeatherDataContainer>
         </WeatherContainer>
       )}
@@ -74,21 +75,31 @@ export default function WeatherData({
   )
 }
 
-const Button = styled.button`
-  cursor: pointer;
-  padding: 10px 30px;
-`
-
 const WeatherContainer = styled.div`
   padding: 50px 0;
   display: flex;
+  justify-content: center;
+  text-align: center;
 `
 
 const WeatherDataContainer = styled.div`
   flex: 2;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
   background-color: transparent;
   padding: 20px;
   margin-bottom: 50px;
   border-radius: 10px;
+`
+
+const WeatherDataWrapper = styled.div`
+  display: flex;
+`
+
+const WeatherDailyDataContainer = styled.div`
+  text-align: center;
+  margin: 0 auto;
 `

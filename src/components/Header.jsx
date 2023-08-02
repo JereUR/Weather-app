@@ -41,7 +41,7 @@ const LogoContainer = styled.div`
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
     font-style: italic;
     margin-bottom: 0;
-    font-size: 26px;
+    font-size: 32px;
   }
 `
 

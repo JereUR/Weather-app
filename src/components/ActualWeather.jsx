@@ -82,6 +82,7 @@ const Condition = styled.p`
 const DataContainer = styled.div`
   display: flex;
   margin-bottom: 50px;
+  margin-left: 5vw;
 `
 
 const Icon = styled.img`
@@ -121,10 +122,10 @@ const WeatherTime = styled.div`
   flex: 1;
   text-align: center;
   border-radius: 20px;
-  max-width: 300px;
-  max-height: 200px;
-  margin-left: 10%;
-  margin-top: 5%;
+  width: 500px;
+  height: 300px;
+  margin-left: 15vw;
+  margin-top: 20px;
   border: 1px solid #888;
   box-shadow: 5px 10px 10px #666;
 `

@@ -4,6 +4,7 @@ export const Colors = {
   primaryText: '#333333',
   veryColdTemperature: '#2B6CC4',
   coldTemperature: '#5DADEC',
+  coldTemperatureExtra: '#3A7EAC',
   normalTemperature: '#F7B165',
   hotTemperature: '#F7956B',
   veryHotTemperature: '#FF4444',
