@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { TbTemperatureCelsius } from 'react-icons/tb'
 
-import CityData from './CityData'
+import Loader from './Loader'
 import { Colors } from '../static/Colors'
 
 const {
@@ -42,16 +42,26 @@ export default function ActualWeather({ city, weatherData, weatherClassName }) {
   return (
     <DataContainer>
       <CityContainer>
-        <CityData city={city} />
-        <IconSection colortemperature={colortemperature}>
+        {city ? (
+          <CityName>
+            🌍 <span>{city}</span>
+          </CityName>
+        ) : (
+          <Loader />
+        )}
+        {/* <IconSection colortemperature={colortemperature}>
           <p>👀 The sky looks like...</p>
           <Icon
             src={`./src/assets/weather-icons/${weatherData.weatherIcon}.png`}
             alt={weatherData.condition}
           />
-        </IconSection>
+        </IconSection> */}
       </CityContainer>
       <WeatherContainer colortemperature={colortemperature}>
+        <Icon
+          src={`./src/assets/weather-icons/${weatherData.weatherIcon}.png`}
+          alt={weatherData.condition}
+        />
         <Temperature className={weatherClassName} color={colortemperature}>
           {weatherData.temperature} <TbTemperatureCelsius size={52} />
         </Temperature>
@@ -60,17 +70,30 @@ export default function ActualWeather({ city, weatherData, weatherClassName }) {
           {weatherData.condition}
         </Condition>
       </WeatherContainer>
-      <WeatherTime
+      {/* <WeatherTime
         className={weatherData.day ? 'day-weather' : 'night-weather'}
-      />
+      /> */}
     </DataContainer>
   )
 }
 
 const CityContainer = styled.div`
-  margin: 5px 150px 50px 100px;
+  margin: 5px 150px 50px 10vw;
+
   p {
     color: black;
+  }
+`
+
+const CityName = styled.p`
+  font-size: 42px;
+  font-weight: bold;
+  margin-bottom: -10px;
+
+  span {
+    color: #fff;
+    font-style: italic;
+    text-decoration: underline;
   }
 `
 
@@ -86,7 +109,9 @@ const DataContainer = styled.div`
 `
 
 const Icon = styled.img`
-  width: 120px;
+  height: 90px;
+  border-radius: 50%;
+  margin-bottom: -50px;
 `
 
 const IconSection = styled.div`
@@ -95,7 +120,8 @@ const IconSection = styled.div`
   border-radius: 10px;
   padding: 10px 50px;
   margin-top: 70px;
-  margin-left: 100px;
+  margin-left: 15vw;
+  background-color: #fff;
 
   p {
     font-weight: bold;
@@ -111,13 +137,14 @@ const Temperature = styled.p`
 `
 
 const WeatherContainer = styled.div`
-  padding: 50px;
+  padding: 60px 90px;
   box-shadow: ${({ colortemperature }) => `1px 5px 5px ${colortemperature}`};
+  background-color: #fff;
   border-radius: 50%;
-  margin-top: 50px;
+  margin-top: 150px;
   margin-bottom: 50px;
 `
-
+/* 
 const WeatherTime = styled.div`
   flex: 1;
   text-align: center;
@@ -129,3 +156,4 @@ const WeatherTime = styled.div`
   border: 1px solid #888;
   box-shadow: 5px 10px 10px #666;
 `
+ */

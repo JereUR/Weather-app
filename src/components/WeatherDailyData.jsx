@@ -27,11 +27,11 @@ export default function WeatherDailyData({ data, searchMode, setSearchMode }) {
           <TemperatureData>
             <TempContainer>
               <TitleTempMin>Minimum</TitleTempMin>
-              <MinTemp>{minCelsius}°C</MinTemp>
+              <TempValue>{minCelsius}°C</TempValue>
             </TempContainer>
             <TempContainer>
               <TitleTempMax>Maximum</TitleTempMax>
-              <MaxTemp>{maxCelsius}°C</MaxTemp>
+              <TempValue>{maxCelsius}°C</TempValue>
             </TempContainer>
           </TemperatureData>
           <WeatherDetails>
@@ -113,6 +113,7 @@ const DailyDetails = styled.div`
   justify-content: center;
   border-radius: 10px;
   margin: 20px 100px;
+  box-shadow: 0px 5px 5px #ddd;
 `
 
 const DailyWeatherData = styled.div`
@@ -120,7 +121,6 @@ const DailyWeatherData = styled.div`
   text-align: center;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0px 5px 5px #ddd;
 
   &:first-child {
     margin-right: 100px;
@@ -150,20 +150,6 @@ const Intensity = styled.p`
 
 const MainContainer = styled.div``
 
-const MaxTemp = styled.p`
-  font-size: 18px;
-  color: #222;
-  font-weight: bold;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-`
-
-const MinTemp = styled.p`
-  font-size: 18px;
-  color: #222;
-  font-weight: bold;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-`
-
 const Precipitation = styled.p`
   font-size: 16px;
 `
@@ -175,6 +161,7 @@ const PrecipitationDetails = styled.div`
 
 const TempContainer = styled.div`
   margin: 0 20px;
+  font-size: 26px;
   text-align: center;
   border-right: 1px solid #333;
   padding-right: 20px;
@@ -193,6 +180,12 @@ const TemperatureData = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+`
+
+const TempValue = styled.p`
+  color: #222;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 `
 
 const Title = styled.p`
@@ -235,7 +228,6 @@ const TitleDetails = styled.p`
 `
 
 const TitleTempMax = styled.p`
-  font-size: 16px;
   font-weight: bold;
   color: ${veryHotTemperature};
 `
@@ -253,17 +245,32 @@ const WeatherContainer = styled.div`
 `
 
 const WeatherDailyContainer = styled.div`
+  position: relative;
   text-align: center;
-  padding: 5px 10vw;
-  background-color: transparent;
+  padding: 20px 10vw;
+  background-color: #f5f5f5;
   background-size: 200% 200%;
-  border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: fit-content;
   margin: 10px auto;
   margin-left: 5vw;
   color: #333;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 15px;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.01),
+      rgba(0, 0, 0, 0.005)
+    );
+  }
 `
 
 const WeatherDetails = styled.div`

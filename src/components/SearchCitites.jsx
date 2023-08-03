@@ -13,6 +13,25 @@ const { headerColor } = Colors
 export default function SearchCities({ setCity, setSearchMode }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [searchResults, setSearchResults] = useState([])
+  const [isFocused, setIsFocused] = useState(false)
+  const [isSemiFocused, setIsSemiFocused] = useState(false)
+
+  const inputContainerClassName = `input-container ${
+    isFocused ? 'input-container-focus' : ''
+  }`
+
+  const isLoginClassName = `input-login ${
+    isSemiFocused ? 'input-login-semifocus' : ''
+  }`
+
+  const handleFocus = () => {
+    setIsFocused(true)
+    setIsSemiFocused(false)
+  }
+
+  const handleBlur = () => {
+    setSearchTerm('')
+  }
 
   const handleSearch = async (e) => {
     const searchTerm = e.target.value
@@ -56,12 +75,17 @@ export default function SearchCities({ setCity, setSearchMode }) {
 
   return (
     <SearchContainer>
-      <SearchInput
-        type="search"
-        value={searchTerm}
-        onChange={handleSearch}
-        placeholder="Buscar ciudad..."
-      />
+      <InputContainer className={inputContainerClassName}>
+        <SearchInput
+          type="search"
+          value={searchTerm}
+          onChange={handleSearch}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          className={isLoginClassName}
+        />
+        <Label>Buscar ciudad...</Label>
+      </InputContainer>
       {searchResults.length > 0 && (
         <SearchResults
           results={searchResults}
@@ -72,6 +96,36 @@ export default function SearchCities({ setCity, setSearchMode }) {
   )
 }
 
+const InputContainer = styled.div`
+  position: relative;
+  margin-top: 5px;
+  margin-right: 5vw;
+  margin-bottom: 20px;
+  overflow: hidden;
+  border-radius: 5px;
+  width: 15vw;
+`
+
+const Label = styled.label`
+  color: #222;
+  font-weight: 400;
+  position: absolute;
+  top: 0;
+  left: 20px;
+  padding: 20px 5px 20px 6px;
+  right: 20px;
+  pointer-events: none;
+  font-size: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  display: block;
+  transition:
+    top 0.3s ease,
+    font-size 0.3s ease;
+`
+
 const SearchContainer = styled.div`
   position: relative;
   display: flex;
@@ -79,14 +133,13 @@ const SearchContainer = styled.div`
 `
 
 const SearchInput = styled.input`
-  padding: 8px;
-  margin-right: 5vw;
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-  border: 1px solid #eee;
-  color: #444;
-  font-size: 16px;
-  outline: none;
-  width: 200px;
+  width: 100%;
+  padding: 25px;
+  border: none;
+  border: 1px solid #ccc;
+  font-size: 24px;
+  border-radius: 5px;
+  background-color: transparent;
+  transition: border 0.3s ease;
+  color: #1da1f2;
 `

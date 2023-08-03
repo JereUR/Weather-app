@@ -26,7 +26,7 @@ const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 20px 10px;
 `
 
 const LogoContainer = styled.div`

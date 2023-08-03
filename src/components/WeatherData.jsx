@@ -54,22 +54,26 @@ export default function WeatherData({
   return (
     <>
       {weatherData && (
-        <WeatherContainer>
-          <WeatherDataContainer>
-            <ActualWeather
-              city={city}
-              weatherData={weatherData}
-              weatherClassName={weatherClassName}
-            />
-            <WeatherDailyDataContainer>
-              <WeatherDailyData
-                data={weatherDailyData}
-                searchMode={searchMode}
-                setSearchMode={setSearchMode}
+        <WeatherTime
+          className={weatherData.day ? 'day-weather' : 'night-weather'}
+        >
+          <WeatherContainer>
+            <WeatherDataContainer>
+              <ActualWeather
+                city={city}
+                weatherData={weatherData}
+                weatherClassName={weatherClassName}
               />
-            </WeatherDailyDataContainer>
-          </WeatherDataContainer>
-        </WeatherContainer>
+              <WeatherDailyDataContainer>
+                <WeatherDailyData
+                  data={weatherDailyData}
+                  searchMode={searchMode}
+                  setSearchMode={setSearchMode}
+                />
+              </WeatherDailyDataContainer>
+            </WeatherDataContainer>
+          </WeatherContainer>
+        </WeatherTime>
       )}
     </>
   )
@@ -95,11 +99,14 @@ const WeatherDataContainer = styled.div`
   border-radius: 10px;
 `
 
-const WeatherDataWrapper = styled.div`
-  display: flex;
-`
-
 const WeatherDailyDataContainer = styled.div`
   text-align: center;
   margin: 0 auto;
+`
+
+const WeatherTime = styled.div`
+  flex: 1;
+  text-align: center;
+  border: 1px solid #888;
+  box-shadow: 5px 10px 10px #666;
 `
