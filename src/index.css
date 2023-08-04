@@ -11,7 +11,7 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  --background-color: #e8f1f2;
+  --background-color: #fff;
   --header-color: #384c5a;
   --primary-text: #333333;
   --very-cold-temperature: #2b6cc4;
@@ -52,7 +52,7 @@ body {
 
 /* Weather Data Styles */
 
-.day-weather {
+/* .day-weather {
   background-image: url('./assets/day-background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
@@ -63,7 +63,7 @@ body {
   background-image: url('./assets/night-background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-}
+} */
 
 /* Loader Styles */
 
@@ -119,18 +119,6 @@ body {
 
 /* Search City Input Styles */
 
-.input-container::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  background: transparent;
-  right: 0;
-  width: 1px;
-  height: 100%;
-  background-color: rgb(118, 118, 118);
-  transition: all 0.2s ease;
-}
-
 .input-login:focus {
   border: 3px solid #1da1f2;
   outline: none;
@@ -156,9 +144,4 @@ body {
   font-size: 14px;
   padding: 20px 40px 20px 5px;
   color: #1da1f2;
-}
-
-.input-container-focus::after {
-  background-color: #ccc;
-  padding-right: 1px;
 }

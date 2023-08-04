@@ -108,14 +108,14 @@ const InputContainer = styled.div`
 
 const Label = styled.label`
   color: #222;
-  font-weight: 400;
+  font-weight: 500;
   position: absolute;
   top: 0;
   left: 20px;
   padding: 20px 5px 20px 6px;
   right: 20px;
   pointer-events: none;
-  font-size: 20px;
+  font-size: 22px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

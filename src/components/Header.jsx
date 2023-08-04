@@ -21,7 +21,7 @@ export default function Header({ setCity, setSearchMode }) {
 }
 
 const HeaderContainer = styled.header`
-  background-color: #f2f9f9;
+  background-color: #fff;
   color: black;
   display: flex;
   justify-content: space-between;

@@ -91,7 +91,7 @@ const WeatherDataContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: space-between;
   gap: 20px;
   background-color: transparent;
   padding: 20px;
@@ -107,6 +107,4 @@ const WeatherDailyDataContainer = styled.div`
 const WeatherTime = styled.div`
   flex: 1;
   text-align: center;
-  border: 1px solid #888;
-  box-shadow: 5px 10px 10px #666;
 `
