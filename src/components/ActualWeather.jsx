@@ -17,6 +17,19 @@ const {
 
 export default function ActualWeather({ city, weatherData, weatherClassName }) {
   const [colortemperature, setColortemperature] = useState('')
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+
+  const actualizarAnchoPantalla = () => {
+    setScreenWidth(window.innerWidth)
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', actualizarAnchoPantalla)
+
+    return () => {
+      window.removeEventListener('resize', actualizarAnchoPantalla)
+    }
+  }, [window.innerWidth])
 
   useEffect(() => {
     switch (weatherClassName) {
@@ -43,6 +56,14 @@ export default function ActualWeather({ city, weatherData, weatherClassName }) {
 
   return (
     <DataContainer>
+      {screenWidth < 850 && (
+        <ImageContainer>
+          <Image
+            src={weatherData.day ? dayIcon : nightIcon}
+            alt={weatherData.day ? 'day-icon' : 'night-icon'}
+          />
+        </ImageContainer>
+      )}
       <WeatherContainer colortemperature={colortemperature}>
         <WeatherInfo>
           <CityContainer>
@@ -53,13 +74,6 @@ export default function ActualWeather({ city, weatherData, weatherClassName }) {
             ) : (
               <Loader />
             )}
-            {/* <IconSection colortemperature={colortemperature}>
-          <p>👀 The sky looks like...</p>
-          <Icon
-            src={`./src/assets/weather-icons/${weatherData.weatherIcon}.png`}
-            alt={weatherData.condition}
-          />
-        </IconSection> */}
           </CityContainer>
           <Icon
             src={`./src/assets/weather-icons/${weatherData.weatherIcon}.png`}
@@ -69,7 +83,7 @@ export default function ActualWeather({ city, weatherData, weatherClassName }) {
         </WeatherInfo>
         <TemperatureInfo>
           <Temperature className={weatherClassName} color={colortemperature}>
-            {weatherData.temperature} <TbTemperatureCelsius size={52} />
+            {weatherData.temperature} <TbTemperatureCelsius fontSize={52} />
           </Temperature>
           <PrecipitationType>
             {weatherData.precipitationType
@@ -78,12 +92,14 @@ export default function ActualWeather({ city, weatherData, weatherClassName }) {
           </PrecipitationType>
         </TemperatureInfo>
       </WeatherContainer>
-      <ImageContainer>
-        <Image
-          src={weatherData.day ? dayIcon : nightIcon}
-          alt={weatherData.day ? 'day-icon' : 'night-icon'}
-        />
-      </ImageContainer>
+      {screenWidth > 850 && (
+        <ImageContainer>
+          <Image
+            src={weatherData.day ? dayIcon : nightIcon}
+            alt={weatherData.day ? 'day-icon' : 'night-icon'}
+          />
+        </ImageContainer>
+      )}
     </DataContainer>
   )
 }
@@ -97,8 +113,14 @@ const CityContainer = styled.div`
 `
 
 const CityName = styled.p`
-  font-size: 42px;
+  font-size: 38px;
+  margin-left: 2vw;
   font-weight: bold;
+
+  @media (max-width: 1450px) {
+    margin-left: 5vw;
+    font-size: 34px;
+  }
 
   span {
     color: black;
@@ -108,15 +130,28 @@ const CityName = styled.p`
 `
 
 const Condition = styled.p`
-  font-size: 24px;
+  font-size: 20px;
   color: black;
   margin-top: 3vw;
   margin-left: 2vw;
+
+  @media (max-width: 1450px) {
+    font-size: 18px;
+  }
+
+  @media (max-width: 1450px) {
+    font-size: 16px;
+    margin-top: 40px;
+  }
 `
 
 const DataContainer = styled.div`
   display: flex;
   margin-bottom: 50px;
+
+  @media (max-width: 850px) {
+    display: block;
+  }
 `
 
 const Icon = styled.img`
@@ -124,35 +159,82 @@ const Icon = styled.img`
   border-radius: 50%;
   margin-bottom: -50px;
   margin-left: 2vw;
+
+  @media (max-width: 1450px) {
+    height: 80px;
+  }
 `
 
 const Image = styled.img`
   height: 350px;
+
+  @media (max-width: 1450px) {
+    height: 300px;
+  }
+
+  @media (max-width: 1450px) {
+    height: 200px;
+  }
 `
 
 const ImageContainer = styled.div`
   position: absolute;
   left: 65%;
   margin-top: -2vw;
+
+  @media (max-width: 1450px) {
+    position: static;
+    margin: auto;
+    margin-top: -8vw;
+    margin-bottom: 2vw;
+  }
 `
 
 const PrecipitationType = styled.p`
   margin-top: -30px;
-  font-size: 24px;
+  font-size: 20px;
   font-style: italic;
+
+  @media (max-width: 1450px) {
+    font-size: 18px;
+    margin-top: -20px;
+  }
+
+  @media (max-width: 850px) {
+    font-size: 16px;
+  }
 `
 
 const Temperature = styled.p`
   padding: 40px;
   box-shadow: 1px 3px 3px black;
   border-radius: 50%;
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: bold;
   color: #fff;
+
+  @media (max-width: 1450px) {
+    font-size: 2.5rem;
+    padding: 30px;
+  }
+
+  @media (max-width: 850px) {
+    font-size: 2rem;
+  }
+
+  svg {
+    @media (max-width: 850px) {
+      font-size: 2rem;
+    }
+  }
 `
 
 const TemperatureInfo = styled.div`
   margin: auto;
+
+  @media (max-width: 850px) {
+    margin-top: 50px;
+  }
 `
 
 const WeatherContainer = styled.div`
@@ -162,8 +244,18 @@ const WeatherContainer = styled.div`
   height: fit-content;
   background-color: ${({ colortemperature }) => `${colortemperature}`};
   margin-left: 7vw;
+  box-shadow: 2px 2px 5px #ddd;
   padding-bottom: 20px;
   margin-bottom: 50px;
+
+  @media (max-width: 1450px) {
+    margin-left: 10vw;
+  }
+
+  @media (max-width: 850px) {
+    width: 90vw;
+    margin-left: auto;
+  }
 `
 
 const WeatherInfo = styled.div`

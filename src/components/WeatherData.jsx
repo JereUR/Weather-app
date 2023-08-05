@@ -84,6 +84,11 @@ const WeatherContainer = styled.div`
   display: flex;
   justify-content: center;
   text-align: center;
+
+  @media (max-width: 850px) {
+    display: block;
+    padding: 10px 0;
+  }
 `
 
 const WeatherDataContainer = styled.div`

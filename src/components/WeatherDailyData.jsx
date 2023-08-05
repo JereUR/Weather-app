@@ -104,8 +104,18 @@ export default function WeatherDailyData({ data, searchMode, setSearchMode }) {
 
 const Button = styled.button`
   cursor: pointer;
+  background-color: #28a745;
+  border: none;
+  font-size: 20px;
   padding: 10px 30px;
-  margin-top: 30px;
+  margin-top: 3vw;
+  box-shadow: 2px 2px 0px #999;
+  transform: all 1s ease-in-out;
+
+  &:hover {
+    transform: translateY(-2px) translateX(2px);
+    box-shadow: none;
+  }
 `
 
 const DailyDetails = styled.div`
@@ -179,7 +189,6 @@ const TemperatureData = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
 `
 
 const TempValue = styled.p`
@@ -248,14 +257,15 @@ const WeatherDailyContainer = styled.div`
   position: relative;
   text-align: center;
   padding: 20px 10vw;
-  background-color: #f5f5f5;
   background-size: 200% 200%;
-  border-radius: 5px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
   width: fit-content;
   margin: 10px auto;
-  margin-left: 5vw;
   color: #333;
+
+  @media (max-width: 1450px) {
+    padding: 10px 1vw;
+  }
 
   &::before {
     content: '';
@@ -274,7 +284,6 @@ const WeatherDailyContainer = styled.div`
 `
 
 const WeatherDetails = styled.div`
-  text-align: center;
   border-radius: 10px;
   padding: 10px;
 `

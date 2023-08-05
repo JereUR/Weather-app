@@ -104,6 +104,11 @@ const InputContainer = styled.div`
   overflow: hidden;
   border-radius: 5px;
   width: 15vw;
+
+  @media (max-width: 850px) {
+    width: 90vw;
+    margin: 20px auto;
+  }
 `
 
 const Label = styled.label`
@@ -115,7 +120,7 @@ const Label = styled.label`
   padding: 20px 5px 20px 6px;
   right: 20px;
   pointer-events: none;
-  font-size: 22px;
+  font-size: 20px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -124,6 +129,14 @@ const Label = styled.label`
   transition:
     top 0.3s ease,
     font-size 0.3s ease;
+
+  @media (max-width: 1450px) {
+    font-size: 18px;
+  }
+
+  @media (max-width: 850px) {
+    font-size: 16px;
+  }
 `
 
 const SearchContainer = styled.div`
@@ -142,4 +155,12 @@ const SearchInput = styled.input`
   background-color: transparent;
   transition: border 0.3s ease;
   color: #1da1f2;
+
+  @media (max-width: 1450px) {
+    padding: 20px;
+  }
+
+  @media (max-width: 850px) {
+    padding: 15px;
+  }
 `

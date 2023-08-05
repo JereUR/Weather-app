@@ -9,7 +9,7 @@ const { headerColor } = Colors
 export default function Header({ setCity, setSearchMode }) {
   return (
     <HeaderContainer>
-      <LogoContainer>
+      <LogoContainer onClick={() => setSearchMode(false)}>
         <img src={logo} alt="Logo de la app de clima" />
         <h1>Weather App</h1>
       </LogoContainer>
@@ -27,11 +27,19 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 20px 10px;
+
+  @media (max-width: 850px) {
+    display: block;
+  }
 `
 
 const LogoContainer = styled.div`
   text-align: center;
   margin: 10px 5vw;
+
+  &:hover {
+    cursor: pointer;
+  }
 
   img {
     height: 100px;
