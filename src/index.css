@@ -134,14 +134,14 @@ body {
 .input-login-semifocus ~ label {
   top: -15px;
   left: -25px;
-  font-size: 14px;
+  font-size: 16px;
   padding: 20px 40px 20px 5px;
 }
 
 .input-login:focus ~ label {
   top: -10px;
   left: 10px;
-  font-size: 14px;
+  font-size: 16px;
   padding: 20px 40px 20px 5px;
   color: #1da1f2;
 }

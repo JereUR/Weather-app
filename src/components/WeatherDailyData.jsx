@@ -6,14 +6,14 @@ import { Colors } from '../static/Colors'
 const { coldTemperature, veryHotTemperature } = Colors
 
 export default function WeatherDailyData({ data, searchMode, setSearchMode }) {
-  let minCelsius = data.temperatureMin
-  let maxCelsius = data.temperatureMax
+  let minCelsius = data?.temperatureMin
+  let maxCelsius = data?.temperatureMax
 
-  if (data.unitMin === 'F') {
+  if (data?.unitMin === 'F') {
     minCelsius = Math.floor((data.temperatureMin - 32) * (5 / 9))
   }
 
-  if (data.unitMax === 'F') {
+  if (data?.unitMax === 'F') {
     maxCelsius = Math.floor((data.temperatureMax - 32) * (5 / 9))
   }
 

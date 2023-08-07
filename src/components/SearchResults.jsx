@@ -20,6 +20,7 @@ export default function SearchResults({ results, onResultClick }) {
 const ResultsContainer = styled.div`
   position: absolute;
   top: calc(100% + 10px);
+  margin-top: -30px;
   left: 0;
   width: 100%;
   background-color: #fff;
