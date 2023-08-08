@@ -3,7 +3,7 @@ import axios from 'axios'
 export default async function GetWeatherDailyData({ key }) {
   const apiKey = import.meta.env.VITE_ACCUWEATHER_API_KEY
   try {
-    const forecastUrl = `http://dataservice.accuweather.com/forecasts/v1/daily/1day/${key}?apikey=${apiKey}`
+    const forecastUrl = `https://dataservice.accuweather.com/forecasts/v1/daily/1day/${key}?apikey=${apiKey}`
 
     const forecastData = await axios.get(forecastUrl)
 

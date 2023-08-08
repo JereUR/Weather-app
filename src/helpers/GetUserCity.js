@@ -30,7 +30,7 @@ export default async function GetUserCity(searchTerm = null) {
 
   if (searchTerm === null) {
     const userLocation = await getUserLocation()
-    url = `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${ACCUWEATHER_API_KEY}&q=${userLocation.latitude},${userLocation.longitude}`
+    url = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${ACCUWEATHER_API_KEY}&q=${userLocation.latitude},${userLocation.longitude}`
 
     try {
       const response = await axios.get(url)
@@ -48,7 +48,7 @@ export default async function GetUserCity(searchTerm = null) {
       }
     }
   } else {
-    url = `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${ACCUWEATHER_API_KEY}&q=${searchTerm}`
+    url = `https://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${ACCUWEATHER_API_KEY}&q=${searchTerm}`
 
     try {
       const response = await axios.get(url)
