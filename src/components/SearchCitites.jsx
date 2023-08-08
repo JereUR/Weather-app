@@ -3,12 +3,9 @@ import styled from 'styled-components'
 import { FaSearchLocation } from 'react-icons/fa'
 
 import SearchResults from './SearchResults'
-import { Colors } from '../static/Colors'
 import getCountryCode from '../helpers/GetCountryCode'
 import GetUserCity from '../helpers/GetUserCity'
 import GetCityLocalTime from '../helpers/GetCityLocalTime'
-
-const { headerColor } = Colors
 
 export default function SearchCities({ setCity, setSearchMode }) {
   const [searchTerm, setSearchTerm] = useState('')
@@ -16,7 +13,6 @@ export default function SearchCities({ setCity, setSearchMode }) {
   const [searchResults, setSearchResults] = useState([])
   const [isFocused, setIsFocused] = useState(false)
   const [isSemiFocused, setIsSemiFocused] = useState(false)
-  const [searchValue, setSearchValue] = useState('')
 
   const inputContainerClassName = `input-container ${
     isFocused ? 'input-container-focus' : ''
@@ -27,12 +23,11 @@ export default function SearchCities({ setCity, setSearchMode }) {
   }`
 
   const handleBlur = () => {
-    if (searchResults.length > 0) {
-      setSearchResults([])
+    if (searchTerm !== '') {
+      setIsSemiFocused(true)
     }
 
-    setSearchValue(searchTerm)
-    setSearchTerm('')
+    setIsFocused(false)
   }
 
   const handleFocus = () => {
@@ -42,18 +37,17 @@ export default function SearchCities({ setCity, setSearchMode }) {
 
   const handleEnter = (e) => {
     if (e.keyCode === 13) {
-      setSearchValue(searchTerm)
       handleSearch()
     }
   }
 
   const handleSearch = async () => {
-    if (searchValue !== '' || searchTerm !== '') {
+    if (searchTerm !== '') {
       setErrorTerm(null)
       setSearchMode(true)
 
       try {
-        const response = await GetUserCity(searchValue)
+        const response = await GetUserCity(searchTerm)
 
         setSearchResults(response)
       } catch (error) {
@@ -82,8 +76,6 @@ export default function SearchCities({ setCity, setSearchMode }) {
           countryCode,
           cityNameWithUnderscore
         })
-
-        console.log('Hora local:', localTime)
       } else {
         console.error('No se pudo obtener el countryCode')
       }
@@ -108,7 +100,7 @@ export default function SearchCities({ setCity, setSearchMode }) {
         {errorTerm && <ErrorInput>{errorTerm}</ErrorInput>}
       </InputContainer>
       <Button onClick={handleSearch}>
-        <FaSearchLocation fontSize={20} /> Search
+        <FaSearchLocation fontSize={16} /> Search
       </Button>
       {searchResults.length > 0 && (
         <SearchResults
@@ -124,13 +116,13 @@ const Button = styled.button`
   cursor: pointer;
   background-color: #28a745;
   border: none;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
-  padding: 15px 30px;
+  padding: 5px 30px;
   margin-bottom: 10px;
   margin-right: 4vw;
   box-shadow: 2px 2px 0px #999;
-  transform: all 1s ease-in-out;
+  transition: all 0.2s ease-in-out;
 
   &:hover {
     transform: translateY(-2px) translateX(2px);
@@ -191,6 +183,10 @@ const SearchContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+
+  @media (max-width: 850px) {
+    display: block;
+  }
 `
 
 const SearchInput = styled.input`

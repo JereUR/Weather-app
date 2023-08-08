@@ -132,10 +132,11 @@ body {
 }
 
 .input-login-semifocus ~ label {
-  top: -15px;
-  left: -25px;
+  top: -10px;
+  left: 10px;
   font-size: 16px;
   padding: 20px 40px 20px 5px;
+  color: #222 !important;
 }
 
 .input-login:focus ~ label {

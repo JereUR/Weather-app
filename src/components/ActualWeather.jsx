@@ -247,6 +247,7 @@ const WeatherContainer = styled.div`
   box-shadow: 2px 2px 5px #ddd;
   padding-bottom: 20px;
   margin-bottom: 50px;
+  border-radius: 5px;
 
   @media (max-width: 1450px) {
     margin-left: 10vw;
@@ -261,17 +262,3 @@ const WeatherContainer = styled.div`
 const WeatherInfo = styled.div`
   margin: auto;
 `
-
-/* 
-const WeatherTime = styled.div`
-  flex: 1;
-  text-align: center;
-  border-radius: 20px;
-  width: 500px;
-  height: 300px;
-  margin-left: 15vw;
-  margin-top: 20px;
-  border: 1px solid #888;
-  box-shadow: 5px 10px 10px #666;
-`
- */

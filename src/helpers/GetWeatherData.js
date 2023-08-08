@@ -6,7 +6,6 @@ export default async function GetWeatherData({ key }) {
     const weatherUrl = `https://dataservice.accuweather.com/currentconditions/v1/${key}?apikey=${apiKey}`
 
     const weatherData = await axios.get(weatherUrl)
-    console.log(weatherData)
 
     if (weatherData.data) {
       const weather = weatherData.data[0]
@@ -18,8 +17,6 @@ export default async function GetWeatherData({ key }) {
         weatherIcon: weather.WeatherIcon,
         precipitationType: weather.PrecipitationType
       }
-
-      console.log(weatherDetails)
 
       return weatherDetails
     } else {

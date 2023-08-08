@@ -23,75 +23,77 @@ export default function WeatherDailyData({ data, searchMode, setSearchMode }) {
         <TitleContainer>
           <Title>Weather For Tomorrow</Title>
         </TitleContainer>
-        <WeatherContainer>
-          <TemperatureData>
-            <TempContainer>
-              <TitleTempMin>Minimum</TitleTempMin>
-              <TempValue>{minCelsius}°C</TempValue>
-            </TempContainer>
-            <TempContainer>
-              <TitleTempMax>Maximum</TitleTempMax>
-              <TempValue>{maxCelsius}°C</TempValue>
-            </TempContainer>
-          </TemperatureData>
-          <WeatherDetails>
-            <TitleDetails>Details</TitleDetails>
-            <DailyDetails>
-              <DailyWeatherData>
-                <TitleData>Day Info</TitleData>
-                <Icon
-                  src={`./src/assets/weather-icons/${data.day.weatherIcon}.png`}
-                />
-                <InfoWeather>
-                  <Precipitation>
-                    <b>Precipitation</b>
-                    <br />
-                    {data.day.precipitation ? 'Yes' : 'No'}
-                  </Precipitation>
-                  {data.day.precipitation && (
-                    <PrecipitationDetails>
-                      <Intensity>
-                        <b>Intensity</b>
-                        <br />
-                        {data.day.precipitationIntensity}
-                      </Intensity>
-                      <Type>
-                        <b>Type</b> <br />
-                        {data.day.precipitationType}
-                      </Type>
-                    </PrecipitationDetails>
-                  )}
-                </InfoWeather>
-              </DailyWeatherData>
-              <DailyWeatherData>
-                <TitleData>Night Info</TitleData>
-                <Icon
-                  src={`./src/assets/weather-icons/${data.night.weatherIcon}.png`}
-                />
-                <InfoWeather>
-                  <Precipitation>
-                    <b>Precipitation</b>
-                    <br />
-                    {data.night.precipitation ? 'Yes' : 'No'}
-                  </Precipitation>
-                  {data.night.precipitation && (
-                    <PrecipitationDetails>
-                      <Intensity>
-                        <b>Intensity</b> <br />
-                        {data.night.precipitationIntensity}
-                      </Intensity>
-                      <Type>
-                        <b>Type</b>
-                        <br />
-                        {data.night.precipitationType}
-                      </Type>
-                    </PrecipitationDetails>
-                  )}
-                </InfoWeather>
-              </DailyWeatherData>
-            </DailyDetails>
-          </WeatherDetails>
-        </WeatherContainer>
+        {data && (
+          <WeatherContainer>
+            <TemperatureData>
+              <TempContainer>
+                <TitleTempMin>Minimum</TitleTempMin>
+                <TempValue>{minCelsius}°C</TempValue>
+              </TempContainer>
+              <TempContainer>
+                <TitleTempMax>Maximum</TitleTempMax>
+                <TempValue>{maxCelsius}°C</TempValue>
+              </TempContainer>
+            </TemperatureData>
+            <WeatherDetails>
+              <TitleDetails>Details</TitleDetails>
+              <DailyDetails>
+                <DailyWeatherData>
+                  <TitleData>Day Info</TitleData>
+                  <Icon
+                    src={`./src/assets/weather-icons/${data.day.weatherIcon}.png`}
+                  />
+                  <InfoWeather>
+                    <Precipitation>
+                      <b>Precipitation</b>
+                      <br />
+                      {data.day.precipitation ? 'Yes' : 'No'}
+                    </Precipitation>
+                    {data.day.precipitation && (
+                      <PrecipitationDetails>
+                        <Intensity>
+                          <b>Intensity</b>
+                          <br />
+                          {data.day.precipitationIntensity}
+                        </Intensity>
+                        <Type>
+                          <b>Type</b> <br />
+                          {data.day.precipitationType}
+                        </Type>
+                      </PrecipitationDetails>
+                    )}
+                  </InfoWeather>
+                </DailyWeatherData>
+                <DailyWeatherData>
+                  <TitleData>Night Info</TitleData>
+                  <Icon
+                    src={`./src/assets/weather-icons/${data.night.weatherIcon}.png`}
+                  />
+                  <InfoWeather>
+                    <Precipitation>
+                      <b>Precipitation</b>
+                      <br />
+                      {data.night.precipitation ? 'Yes' : 'No'}
+                    </Precipitation>
+                    {data?.night.precipitation && (
+                      <PrecipitationDetails>
+                        <Intensity>
+                          <b>Intensity</b> <br />
+                          {data.night.precipitationIntensity}
+                        </Intensity>
+                        <Type>
+                          <b>Type</b>
+                          <br />
+                          {data.night.precipitationType}
+                        </Type>
+                      </PrecipitationDetails>
+                    )}
+                  </InfoWeather>
+                </DailyWeatherData>
+              </DailyDetails>
+            </WeatherDetails>
+          </WeatherContainer>
+        )}
       </WeatherDailyContainer>
       {searchMode && (
         <Button onClick={() => setSearchMode(false)}>
@@ -110,7 +112,7 @@ const Button = styled.button`
   padding: 10px 30px;
   margin-top: 3vw;
   box-shadow: 2px 2px 0px #999;
-  transform: all 1s ease-in-out;
+  transition: all 0.2s ease-in-out;
 
   &:hover {
     transform: translateY(-2px) translateX(2px);
@@ -124,6 +126,11 @@ const DailyDetails = styled.div`
   border-radius: 10px;
   margin: 20px 100px;
   box-shadow: 0px 5px 5px #ddd;
+
+  @media (max-width: 850px) {
+    display: block;
+    margin: 10px 0;
+  }
 `
 
 const DailyWeatherData = styled.div`
@@ -134,6 +141,11 @@ const DailyWeatherData = styled.div`
 
   &:first-child {
     margin-right: 100px;
+
+    @media (max-width: 850px) {
+      margin-right: 0;
+      padding: 20px 0;
+    }
   }
 `
 
@@ -208,17 +220,25 @@ const TitleContainer = styled.div`
   padding: 20px;
   margin-bottom: 10px;
 
+  @media (max-width: 850px) {
+    padding: 10px;
+  }
+
   &::after {
     content: '';
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    height: 15px;
+    height: 10px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     background-image: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent);
     pointer-events: none;
+
+    @media (max-width: 850px) {
+      height: 5px;
+    }
   }
 `
 
@@ -234,6 +254,10 @@ const TitleDetails = styled.p`
   text-shadow: 0px 2px 2px #ccc;
   color: #333;
   font-weight: bold;
+
+  @media (max-width: 850px) {
+    margin-top: 10vw;
+  }
 `
 
 const TitleTempMax = styled.p`
@@ -251,6 +275,10 @@ const Type = styled.p`
 
 const WeatherContainer = styled.div`
   display: flex;
+
+  @media (max-width: 850px) {
+    display: block;
+  }
 `
 
 const WeatherDailyContainer = styled.div`

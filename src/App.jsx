@@ -6,6 +6,7 @@ import GetUserCity from './helpers/GetUserCity'
 import Header from './components/Header'
 import { Colors } from './static/Colors'
 import Loader from './components/Loader'
+import Footer from './components/Footer'
 
 const { errorText, backgroundError } = Colors
 
@@ -57,6 +58,7 @@ export default function App() {
           </ErrorContainer>
         </CenteredComponent>
       )}
+      <Footer />
     </Container>
   )
 }
