@@ -67,12 +67,17 @@ export default function ActualWeather({ city, weatherData, weatherClassName }) {
       <WeatherContainer colortemperature={colortemperature}>
         <WeatherInfo>
           <CityContainer>
+            <LoaderContainer>
+              <Loader />
+            </LoaderContainer>
             {city ? (
               <CityName>
                 🌍 <span>{city}</span>
               </CityName>
             ) : (
-              <Loader />
+              <LoaderContainer>
+                <Loader />
+              </LoaderContainer>
             )}
           </CityContainer>
           <Icon
@@ -188,6 +193,10 @@ const ImageContainer = styled.div`
     margin-top: -8vw;
     margin-bottom: 2vw;
   }
+`
+
+const LoaderContainer = styled.div`
+  margin: auto;
 `
 
 const PrecipitationType = styled.p`
