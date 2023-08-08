@@ -76,7 +76,7 @@ export default function ActualWeather({ city, weatherData, weatherClassName }) {
             )}
           </CityContainer>
           <Icon
-            src={`../../public/weather-icons/${weatherData.weatherIcon}.png`}
+            src={`./src/assets/${weatherData.weatherIcon}.png`}
             alt={weatherData.condition}
           />
           <Condition>{weatherData.condition}</Condition>
