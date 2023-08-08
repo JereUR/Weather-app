@@ -40,9 +40,7 @@ export default function WeatherDailyData({ data, searchMode, setSearchMode }) {
               <DailyDetails>
                 <DailyWeatherData>
                   <TitleData>Day Info</TitleData>
-                  <Icon
-                    src={`../../public/assets/${data.day.weatherIcon}.png`}
-                  />
+                  <Icon src={`/assets/${data.day.weatherIcon}.png`} />
                   <InfoWeather>
                     <Precipitation>
                       <b>Precipitation</b>
@@ -66,9 +64,7 @@ export default function WeatherDailyData({ data, searchMode, setSearchMode }) {
                 </DailyWeatherData>
                 <DailyWeatherData>
                   <TitleData>Night Info</TitleData>
-                  <Icon
-                    src={`../../public/assets/${data.night.weatherIcon}.png`}
-                  />
+                  <Icon src={`/assets/${data.night.weatherIcon}.png`} />
                   <InfoWeather>
                     <Precipitation>
                       <b>Precipitation</b>
